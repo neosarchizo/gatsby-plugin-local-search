@@ -26,6 +26,10 @@ const createFlexSearchIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
 ): string => {
+  console.log('createFlexSearchIndexExport')
+  console.log('documents', documents)
+  console.log('pluginOptions', pluginOptions)
+
   const { ref = DEFAULT_REF, index: indexFields, engineOptions } = pluginOptions
 
   const index = FlexSearch.create<IndexableDocument>(engineOptions)
