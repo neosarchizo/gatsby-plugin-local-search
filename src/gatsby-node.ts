@@ -40,6 +40,9 @@ const createFlexSearchIndexExport = (
     )
     // Using "as number" due to FlexSearch's types, but it could technically be
     // a string as well.
+
+    console.log('id', doc[ref])
+    console.log('o', serializedDoc)
     index.add(doc[ref] as number, serializedDoc)
   })
 
