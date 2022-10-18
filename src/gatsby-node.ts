@@ -44,7 +44,7 @@ const createFlexSearchIndexExport = (
     console.log('id', doc[ref])
     console.log('o', serializedDoc)
     index.add(doc[ref] as number, serializedDoc)
-    index.add(doc[ref] as number, "서울시가 잠이 든 시간에 아무 말, 미뤄, 미뤄")
+    index.add(doc[ref] as number, '서울시가 잠이 든 시간에 아무 말, 미뤄, 미뤄')
   })
 
   return index.export()
@@ -145,6 +145,9 @@ export const createPages = async (
     pluginOptions,
     gatsbyContext,
   )
+
+  console.log('index!!', index)
+
   if (!index) return
 
   const store = filteredDocuments.reduce((acc, doc) => {
