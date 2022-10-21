@@ -140,7 +140,7 @@ export const createPages = async (
     (doc) => doc[ref] !== undefined && doc[ref] !== null,
   )
 
-  const index = createIndexExport(
+  let index = createIndexExport(
     filteredDocuments,
     pluginOptions,
     gatsbyContext,
@@ -149,6 +149,8 @@ export const createPages = async (
   console.log('index!!', index)
 
   if (!index) return
+
+  index = 'Hello World!!'
 
   const store = filteredDocuments.reduce((acc, doc) => {
     acc[String(doc[ref])] = storeFields ? pick(doc, storeFields) : doc
