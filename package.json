@@ -37,7 +37,7 @@
     "flexsearch"
   ],
   "dependencies": {
-    "flexsearch": "^0.6.32",
+    "flexsearch": "^0.7.31",
     "lodash": "^4.17.19",
     "pascal-case": "^3.1.1"
   },
@@ -49,6 +49,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
+    "@types/flexsearch": "^0.7.3",
     "@types/jest": "^26.0.4",
     "@types/lodash": "^4.14.157",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
