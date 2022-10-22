@@ -31,7 +31,7 @@ const createIndexExport = (
 
   const { ref = DEFAULT_REF, index: indexFields, engineOptions } = pluginOptions
 
-  const index = FlexSearch.Index(engineOptions)
+  const index = new FlexSearch.Index(engineOptions)
 
   documents.forEach((doc) => {
     const serializedDoc = JSON.stringify(
