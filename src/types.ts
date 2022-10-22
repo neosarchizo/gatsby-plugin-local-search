@@ -15,11 +15,8 @@ export enum NodeType {
   LocalSearch = 'LocalSearch',
 }
 
-export type Engine = 'flexsearch' | 'lunr'
-
 export interface LocalSearchNodeInput extends NodeInput {
   name: string
-  engine: Engine
   index: string
   store: Store
 }
@@ -31,7 +28,6 @@ interface NormalizerInput {
 
 export interface PluginOptions extends GatsbyPluginOptions {
   name: string
-  engine: Engine
   engineOptions?: FlexSearchCreateOptions
   ref?: string
   index?: string[]

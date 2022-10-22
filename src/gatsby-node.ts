@@ -1,6 +1,5 @@
 import path from 'path'
 import fs from 'fs'
-import lunr from 'lunr'
 import FlexSearch from 'flexsearch'
 import {
   GatsbyNode,
@@ -22,10 +21,10 @@ const DEFAULT_REF = 'id'
 
 const msg = (input: string) => `gatsby-plugin-local-search - ${input}`
 
-const createFlexSearchIndexExport = (
+const createIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
-): string => {
+): string | void => {
   console.log('createFlexSearchIndexExport')
   console.log('documents', documents)
   console.log('pluginOptions', pluginOptions)
@@ -50,48 +49,6 @@ const createFlexSearchIndexExport = (
   return index.export()
 }
 
-const createLunrIndexExport = (
-  documents: IndexableDocument[],
-  pluginOptions: PluginOptions,
-): string => {
-  const { ref = DEFAULT_REF, index: indexFields } = pluginOptions
-
-  const fields =
-    indexFields ?? (documents.length > 0 ? Object.keys(documents[0]) : [])
-
-  const index = lunr(function () {
-    this.ref(ref)
-    fields.forEach((field) => this.field(field))
-    documents.forEach((doc) => this.add(doc))
-  })
-
-  return JSON.stringify(index)
-}
-
-const createIndexExport = (
-  documents: IndexableDocument[],
-  pluginOptions: PluginOptions,
-  gatsbyContext: CreatePagesArgs,
-): string | void => {
-  const { reporter } = gatsbyContext
-  const { name, engine } = pluginOptions
-
-  switch (engine) {
-    case 'flexsearch':
-      return createFlexSearchIndexExport(documents, pluginOptions)
-
-    case 'lunr':
-      return createLunrIndexExport(documents, pluginOptions)
-
-    default:
-      reporter.error(
-        msg(
-          `The engine option for index "${name}" is invalid. It must be one of: flexsearch, lunr. The index will not be created.`,
-        ),
-      )
-  }
-}
-
 // Callback style is necessary since createPages cannot be async or return a
 // Promise. At least, that's what GatsbyNode['createNodes'] says.
 export const createPages = async (
@@ -108,7 +65,6 @@ export const createPages = async (
   const { createNode } = actions
   const {
     name,
-    engine,
     ref = DEFAULT_REF,
     store: storeFields,
     query,
@@ -140,11 +96,7 @@ export const createPages = async (
     (doc) => doc[ref] !== undefined && doc[ref] !== null,
   )
 
-  let index = createIndexExport(
-    filteredDocuments,
-    pluginOptions,
-    gatsbyContext,
-  )
+  let index = createIndexExport(filteredDocuments, pluginOptions)
 
   console.log('index!!', index)
 
@@ -164,7 +116,6 @@ export const createPages = async (
   const node: LocalSearchNodeInput = {
     id: nodeId,
     name,
-    engine,
     index,
     store,
     internal: {
@@ -195,10 +146,6 @@ export const createSchemaCustomization: NonNullable<
         name: {
           type: 'String!',
           description: 'The name of the index.',
-        },
-        engine: {
-          type: 'String!',
-          description: 'The search engine used to create the index.',
         },
         index: {
           type: 'String!',

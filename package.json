@@ -34,13 +34,11 @@
     "gatsby",
     "gatsby-plugin",
     "search",
-    "lunr",
     "flexsearch"
   ],
   "dependencies": {
     "flexsearch": "^0.6.32",
     "lodash": "^4.17.19",
-    "lunr": "^2.3.8",
     "pascal-case": "^3.1.1"
   },
   "peerDependencies": {
@@ -53,7 +51,6 @@
     "@commitlint/config-conventional": "^9.0.1",
     "@types/jest": "^26.0.4",
     "@types/lodash": "^4.14.157",
-    "@types/lunr": "^2.3.3",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "eslint": "^7.4.0",
