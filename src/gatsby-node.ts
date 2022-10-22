@@ -99,13 +99,13 @@ export const createPages = async (
     (doc) => doc[ref] !== undefined && doc[ref] !== null,
   )
 
-  const result = await createIndexExport(filteredDocuments, pluginOptions)
+  const indexResult = await createIndexExport(filteredDocuments, pluginOptions)
 
-  const {key, data} = result
+  const {key, data} = indexResult
 
   console.log('key, data!!', key, data)
 
-  index = 'Hello World!!'
+  const index = 'Hello World!!'
 
   const store = filteredDocuments.reduce((acc, doc) => {
     acc[String(doc[ref])] = storeFields ? pick(doc, storeFields) : doc
