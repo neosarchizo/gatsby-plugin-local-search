@@ -24,7 +24,7 @@ const msg = (input: string) => `gatsby-plugin-local-search - ${input}`
 const createIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
-): string | void => {
+): Promise<{ key: string; data: string }> => {
   console.log('createFlexSearchIndexExport')
   console.log('documents', documents)
   console.log('pluginOptions', pluginOptions)
@@ -45,7 +45,11 @@ const createIndexExport = (
     index.add(doc[ref] as number, serializedDoc)
   })
 
-  return index.export()
+  return new Promise((res) => {
+    index.export((key, data) => {
+      res({ key, data })
+    })
+  })
 }
 
 // Callback style is necessary since createPages cannot be async or return a
@@ -95,11 +99,13 @@ export const createPages = async (
     (doc) => doc[ref] !== undefined && doc[ref] !== null,
   )
 
-  let index = createIndexExport(filteredDocuments, pluginOptions)
+  const indexResult = await createIndexExport(filteredDocuments, pluginOptions)
 
-  console.log('index', index)
+  const {key, data} = indexResult
 
-  index = 'Hello World!!'
+  console.log('key, data!!', key, data)
+
+  const index = 'Hello World!!'
 
   const store = filteredDocuments.reduce((acc, doc) => {
     acc[String(doc[ref])] = storeFields ? pick(doc, storeFields) : doc
