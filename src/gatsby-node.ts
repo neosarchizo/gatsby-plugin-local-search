@@ -24,7 +24,7 @@ const msg = (input: string) => `gatsby-plugin-local-search - ${input}`
 const createIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
-): Promise<{ key: string; data: string }> => {
+): Promise<{ key: string | number; data: string }> => {
   console.log('createFlexSearchIndexExport')
   console.log('documents', documents)
   console.log('pluginOptions', pluginOptions)
@@ -33,7 +33,7 @@ const createIndexExport = (
 
   console.log('FlexSearch', FlexSearch)
 
-  const index = FlexSearch.create(engineOptions)
+  const index = new FlexSearch.Index(engineOptions)
   
   documents.forEach((doc) => {
     const serializedDoc = JSON.stringify(
