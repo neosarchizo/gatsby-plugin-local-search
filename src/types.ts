@@ -1,5 +1,5 @@
 import { PluginOptions as GatsbyPluginOptions, NodeInput, Node } from 'gatsby'
-import { CreateOptions as FlexSearchCreateOptions } from 'flexsearch'
+import { IndexOptions } from 'flexsearch'
 
 export interface PartialContext {
   nodeModel: {
@@ -28,7 +28,7 @@ interface NormalizerInput {
 
 export interface PluginOptions extends GatsbyPluginOptions {
   name: string
-  engineOptions?: FlexSearchCreateOptions
+  engineOptions?: IndexOptions<string, false>
   ref?: string
   index?: string[]
   store?: string[]

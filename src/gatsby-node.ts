@@ -31,8 +31,6 @@ const createIndexExport = (
 
   const { ref = DEFAULT_REF, index: indexFields, engineOptions } = pluginOptions
 
-  console.log('FlexSearch', FlexSearch)
-
   const index = new FlexSearch.Index(engineOptions)
   
   documents.forEach((doc) => {

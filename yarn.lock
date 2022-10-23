@@ -1809,10 +1809,10 @@
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
 
-"@types/flexsearch@0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@types/flexsearch/-/flexsearch-0.7.2.tgz#05d982d292e70fcb9fc59347a4a4f98c4ecd9e56"
-  integrity sha512-Nq0CSpOCyUhaF7tAXSvMtoyBMPGlhNyF+uElhIrrgSiXDmX/bnn9jUX7Us3l81Hzowb9rcgNISke0Nj+3xhd3g==
+"@types/flexsearch@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@types/flexsearch/-/flexsearch-0.7.3.tgz#ee79b1618035c82284278e05652e91116765b634"
+  integrity sha512-HXwADeHEP4exXkCIwy2n1+i0f1ilP1ETQOH5KDOugjkTFZPntWo0Gr8stZOaebkxsdx+k0X/K6obU/+it07ocg==
 
 "@types/get-port@^3.2.0":
   version "3.2.0"
