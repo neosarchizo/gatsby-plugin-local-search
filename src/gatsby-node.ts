@@ -13,8 +13,8 @@ import {
   IndexableDocument,
   NodeType,
   PluginOptions,
-  Store,
   LocalSearchNodeInput,
+  Store,
 } from './types'
 
 const DEFAULT_REF = 'id'
@@ -127,17 +127,13 @@ export const createPages = async (
     (doc) => doc[ref] !== undefined && doc[ref] !== null,
   )
 
-  const indexResult = await createIndexExport(filteredDocuments, pluginOptions)
-
-  console.log('indexResult!!', indexResult)
-
-  const index = 'Hello World!!'
+  const index = await createIndexExport(filteredDocuments, pluginOptions)
 
   const store = filteredDocuments.reduce((acc, doc) => {
-    acc[String(doc[ref])] = storeFields ? pick(doc, storeFields) : doc
+    acc.push(storeFields ? pick(doc, storeFields) : doc)
 
     return acc
-  }, {} as Store)
+  }, [] as Store)
 
   const nodeType = pascalCase(`${NodeType.LocalSearch} ${name}`)
   const nodeId = createNodeId(name)

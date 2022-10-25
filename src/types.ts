@@ -9,7 +9,7 @@ export interface PartialContext {
 
 export type IndexableDocument = Record<string, unknown>
 
-export type Store = Record<string, unknown>
+export type Store = Record<string, unknown>[]
 
 export enum NodeType {
   LocalSearch = 'LocalSearch',
