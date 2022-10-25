@@ -25,11 +25,11 @@ const createIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
 ): Promise<string> => {
-  console.log('createFlexSearchIndexExport')
-  console.log('documents', documents)
-  console.log('pluginOptions', pluginOptions)
+  // console.log('createFlexSearchIndexExport')
+  // console.log('documents', documents)
+  // console.log('pluginOptions', pluginOptions)
 
-  const { ref = DEFAULT_REF, index: indexFields, engineOptions } = pluginOptions
+  const { index: indexFields, engineOptions } = pluginOptions
 
   const index = new FlexSearch.Index(engineOptions)
 
@@ -40,8 +40,8 @@ const createIndexExport = (
     // Using "as number" due to FlexSearch's types, but it could technically be
     // a string as well.
 
-    console.log('id', doc[ref])
-    console.log('o', serializedDoc)
+    // console.log('id', doc[ref])
+    // console.log('o', serializedDoc)
     index.add(idxDoc, serializedDoc)
   })
 
