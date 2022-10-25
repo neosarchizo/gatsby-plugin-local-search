@@ -1,5 +1,5 @@
 import { PluginOptions as GatsbyPluginOptions, NodeInput, Node } from 'gatsby'
-import { IndexOptions } from 'flexsearch'
+import { IndexOptions } from 'flexsearch-ts'
 
 export interface PartialContext {
   nodeModel: {

@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import FlexSearch from 'flexsearch'
+import FlexSearch from 'flexsearch-ts'
 import {
   GatsbyNode,
   CreatePagesArgs,
@@ -24,7 +24,7 @@ const msg = (input: string) => `gatsby-plugin-local-search - ${input}`
 const createIndexExport = (
   documents: IndexableDocument[],
   pluginOptions: PluginOptions,
-): Promise<{ key: string | number; data: string }> => {
+): Promise<string> => {
   console.log('createFlexSearchIndexExport')
   console.log('documents', documents)
   console.log('pluginOptions', pluginOptions)
@@ -32,8 +32,8 @@ const createIndexExport = (
   const { ref = DEFAULT_REF, index: indexFields, engineOptions } = pluginOptions
 
   const index = new FlexSearch.Index(engineOptions)
-  
-  documents.forEach((doc) => {
+
+  documents.forEach((doc, idxDoc) => {
     const serializedDoc = JSON.stringify(
       indexFields ? pick(doc, indexFields) : doc,
     )
@@ -42,12 +42,40 @@ const createIndexExport = (
 
     console.log('id', doc[ref])
     console.log('o', serializedDoc)
-    index.add(doc[ref] as number, serializedDoc)
+    index.add(idxDoc, serializedDoc)
   })
 
   return new Promise((res) => {
+    const result = {
+      reg: '',
+      cfg: '',
+      map: '',
+      ctx: '',
+    }
+
     index.export((key, data) => {
-      res({ key, data })
+      switch (key) {
+        case 'reg': {
+          result['reg'] = data
+          break
+        }
+        case 'cfg': {
+          result['cfg'] = data
+          break
+        }
+        case 'map': {
+          result['map'] = data
+          break
+        }
+        case 'ctx': {
+          result['ctx'] = data
+          res(JSON.stringify(result))
+          break
+        }
+
+        default:
+          break
+      }
     })
   })
 }
@@ -101,9 +129,7 @@ export const createPages = async (
 
   const indexResult = await createIndexExport(filteredDocuments, pluginOptions)
 
-  const {key, data} = indexResult
-
-  console.log('key, data!!', key, data)
+  console.log('indexResult!!', indexResult)
 
   const index = 'Hello World!!'
 
