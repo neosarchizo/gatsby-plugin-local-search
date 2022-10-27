@@ -37,7 +37,16 @@ const createIndexExport = (
     const docForIdx = indexFields ? pick(doc, indexFields) : doc
 
     const values = Object.keys(docForIdx).reduce((acc, key) => {
-      acc.push(docForIdx[key])
+      if (key !== 'body') {
+        acc.push(docForIdx[key])
+        return acc  
+      }
+
+      // rawBody --- a[2]
+      const body = docForIdx[key] ? docForIdx[key] : ''
+
+      // @ts-expect-error
+      acc.push(body.split('---')[2])
       return acc
     }, [] as any[])
 
