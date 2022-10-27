@@ -44,6 +44,8 @@ const createIndexExport = (
     // Using "as number" due to FlexSearch's types, but it could technically be
     // a string as well.
 
+    console.log('values!!', values)
+
     // console.log('id', doc[ref])
     // console.log('o', serializedDoc)
     index.add(idxDoc, JSON.stringify(values))
