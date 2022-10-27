@@ -34,15 +34,19 @@ const createIndexExport = (
   const index = new FlexSearch.Index(engineOptions)
 
   documents.forEach((doc, idxDoc) => {
-    const serializedDoc = JSON.stringify(
-      indexFields ? pick(doc, indexFields) : doc,
-    )
+    const docForIdx = indexFields ? pick(doc, indexFields) : doc
+
+    const values = Object.keys(docForIdx).reduce((acc, key) => {
+      acc.push(docForIdx[key])
+      return acc
+    }, [] as any[])
+
     // Using "as number" due to FlexSearch's types, but it could technically be
     // a string as well.
 
     // console.log('id', doc[ref])
     // console.log('o', serializedDoc)
-    index.add(idxDoc, serializedDoc)
+    index.add(idxDoc, JSON.stringify(values))
   })
 
   return new Promise((res) => {
